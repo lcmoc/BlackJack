@@ -147,7 +147,7 @@ export const IMAGES = [
   },
 ];
 
-const PLAYER = 'player';
-const DEALER = 'dealer';
-const SIDEWAYS_DOUBLE_CARD = 'sideways-double-card';
-const CARD_IMG = 'card-img';
+export const PLAYER = 'player';
+export const DEALER = 'dealer';
+export const SIDEWAYS_DOUBLE_CARD = 'sideways-double-card';
+export const CARD_IMG = 'card-img';
