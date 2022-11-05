@@ -1,31 +1,19 @@
-import CardBack from "../../images/card-back.png";
+import { CARD_IMG, PLAYER, SIDEWAYS_DOUBLE_CARD } from '../../Constants/index';
+
 import React from "react";
-import { getImage } from '../../Helpers/index'
+import { getImage } from "../../Helpers/index";
 
 const Image = ({ who, cards, isDealersTurn, didDouble }) => {
   cards?.map((card) => {
-    const image = getImage(card);
+    const image = getImage(card, isDealersTurn);
+    const isSecondCard = cards.indexOf(card) === 2;
+    const isPlayer = who === PLAYER;
+    
+    const getCssClass =
+      (didDouble && isSecondCard && isPlayer && SIDEWAYS_DOUBLE_CARD) ||
+      CARD_IMG;
 
-    if (who === "dealer" && parseInt(cards.indexOf(card)) === 1) {
-      return (
-        <img
-          className="card-img"
-          alt={card}
-          src={isDealersTurn ? image : CardBack}
-        ></img>
-      );
-    }
-    return (
-      <img
-        className={
-          didDouble && cards.indexOf(card) === 2 && who === "player"
-            ? "sideways-double-card"
-            : "card-img"
-        }
-        alt={card}
-        src={image}
-      ></img>
-    );
+    return <img className={getCssClass} alt={card} src={image}></img>;
   });
 };
 

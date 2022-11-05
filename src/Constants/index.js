@@ -146,3 +146,8 @@ export const IMAGES = [
     "5S": FiveOfS,
   },
 ];
+
+const PLAYER = 'player';
+const DEALER = 'dealer';
+const SIDEWAYS_DOUBLE_CARD = 'sideways-double-card';
+const CARD_IMG = 'card-img';
