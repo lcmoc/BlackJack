@@ -187,10 +187,6 @@ function App() {
     }
   };
 
-  // const handleSplit = () => {
-
-  // }
-
   const clearLockedBet = () => {
     setLockedBet(0);
   };
