@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('../images/green-felt.jpg');
+    background-image: url('../../Images/green-felt.jpg');
     width: 90%;
     height: 70vh;
     border-radius: 200px;

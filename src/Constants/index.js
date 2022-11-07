@@ -43,109 +43,187 @@ import TwoOfD from "../Images/2D.png";
 import TwoOfH from "../Images/2H.png";
 import TwoOfS from "../Images/2S.png";
 
-export const DECK_OF_CARDS = [
-  "AH",
-  "2H",
-  "3H",
-  "4H",
-  "5H",
-  "6H",
-  "7H",
-  "8H",
-  "9H",
-  "10H",
-  "JH",
-  "QH",
-  "KH",
-  "AC",
-  "2C",
-  "3C",
-  "4C",
-  "5C",
-  "6C",
-  "7C",
-  "8C",
-  "9C",
-  "10C",
-  "JC",
-  "QC",
-  "KC",
-  "AD",
-  "2D",
-  "3D",
-  "4D",
-  "5D",
-  "6D",
-  "7D",
-  "8D",
-  "9D",
-  "10D",
-  "JD",
-  "QD",
-  "KD",
-  "AS",
-  "2S",
-  "3S",
-  "4S",
-  "5S",
-  "6S",
-  "7S",
-  "8S",
-  "9S",
-  "10S",
-  "JS",
-  "QS",
-  "KS",
-];
-
 export const IMAGES = [
   {
-    "AH": AceOfH,
-    "2H": TwoOfH,
-    "3H": ThreeOfH,
-    "4H": FourOfH,
-    "5H": FiveOfH,
-    "6H": SixOfH,
-    "7H": SevenOfH,
-    "8H": EightOfH,
-    "9H": NineOfH,
-    "10H": TenOfH,
-    "JH": JackOfH,
-    "QH": QueenOfH,
-    "KH": KingOfH,
-    "AC": AceOfC,
-    "2C": TwoOfC,
-    "3C": ThreeOfC,
-    "4C": FourOfC,
-    "5C": FiveOfC,
-    "6C": SixOfC,
-    "7C": SevenOfC,
-    "8C": EightOfC,
-    "9C": NineOfC,
-    "10C": TenOfC,
-    "JC": JackOfC,
-    "QC": QueenOfC,
-    "KC": KingOfC,
-    "AD": AceOfD,
-    "2D": TwoOfD,
-    "3D": ThreeOfD,
-    "4D": FourOfD,
-    "5D": FiveOfD,
-    "6D": SixOfD,
-    "7D": SevenOfD,
-    "8D": EightOfD,
-    "9D": NineOfD,
-    "10D": TenOfD,
-    "JD": JackOfD,
-    "QD": QueenOfD,
-    "KD": KingOfD,
-    "AS": AceOfS,
-    "2S": TwoOfS,
-    "3S": ThreeOfS,
-    "4S": FourOfS,
-    "5S": FiveOfS,
+    name: "AH",
+    card: AceOfH,
+
   },
+  {
+    name: "2H",
+    card: TwoOfH,
+  },
+  {
+    name: "3H",
+    card: ThreeOfH,
+  },
+  {
+    name: "4H",
+    card: FourOfH,
+  },
+  {
+    name: "5H",
+    card: FiveOfH,
+  },
+  {
+    name: "6H",
+    card: SixOfH,
+  },
+  {
+    name: "7H",
+    card: SevenOfH,
+  },
+  {
+    name: "8H",
+    card: EightOfH,
+  },
+  {
+    name: "9H",
+    card: NineOfH,
+  },
+  {
+    name: "10H",
+    card: TenOfH,
+  },
+  {
+    name: "JH",
+    card: JackOfH,
+  },
+  {
+    name: "QH",
+    card: QueenOfH,
+  },
+  {
+    name: "KH",
+    card: KingOfH,
+  },
+  {
+    name: "AC",
+    card: AceOfC,
+  },
+  {
+    name: "2C",
+    card: TwoOfC,
+  },
+  {
+    name: "3C",
+    card: ThreeOfC,
+  },
+  {
+    name: "4C",
+    card: FourOfC,
+  },
+  {
+    name: "5C",
+    card: FiveOfC,
+  },
+  {
+    name: "6C",
+    card: SixOfC,
+  },
+  {
+    name: "7C",
+    card: SevenOfC,
+  },
+  {
+    name: "8C",
+    card: EightOfC,
+  },
+  {
+    name: "9C",
+    card: NineOfC,
+  },
+  {
+    name: "10C",
+    card: TenOfC,
+  },
+  {
+    name: "JC",
+    card: JackOfC,
+  },
+  {
+    name: "QC",
+    card: QueenOfC,
+  },
+  {
+    name: "KC",
+    card: KingOfC,
+  },
+  {
+    name: "AD",
+    card: AceOfD,
+  },
+  {
+    name: "2D",
+    card: TwoOfD,
+  },
+  {
+    name: "3D",
+    card: ThreeOfD,
+  },
+  {
+    name: "4D",
+    card: FourOfD,
+  },
+  {
+    name: "5D",
+    card: FiveOfD,
+  },
+  {
+    name: "6D",
+    card: SixOfD,
+  },
+  {
+    name: "7D",
+    card: SevenOfD,
+  },
+  {
+    name: "8D",
+    card: EightOfD,
+  },
+  {
+    name: "9D",
+    card: NineOfD,
+  },
+  {
+    name: "10D",
+    card: TenOfD,
+  },
+  {
+    name: "JD",
+    card: JackOfD,
+  },
+  {
+    name: "QD",
+    card: QueenOfD,
+  },
+  {
+    name: "KD",
+    card: KingOfD,
+  },
+  {
+    name: "AS",
+    card: AceOfS,
+  },
+  {
+    name: "2S",
+    card: TwoOfS,
+  },
+  {
+    name: "3S",
+    card: ThreeOfS,
+  },
+  {
+    name: "4S",
+    card: FourOfS,
+  },
+  {
+    name: "5S",
+    card: FiveOfS,
+  }
 ];
+
+export const DECK_OF_CARDS = IMAGES.map((card) => card.name);
 
 export const PLAYER = 'player';
 export const DEALER = 'dealer';
