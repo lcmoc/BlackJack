@@ -2,19 +2,10 @@ import './App.css';
 
 import React, { useCallback, useEffect, useState } from "react";
 
-import ChipImages from "./Components/ChipImages/index";
+import { CHIPS } from "./Constants/index";
+import ChipImage from "./Components/ChipImage/index";
 import { DECK_OF_CARDS } from "./Constants/index";
-import FiftyThousand from "./Images/50k-chip.png";
-import Five from "./Images/5-chip.png";
-import FiveHundred from "./Images/500-chip.png";
-import FiveHundredK from "./Images/500k-chip.png";
 import Game from "./Components/Game/index";
-import OneHundred from "./Images/100-chip.png";
-import OneHundredK from "./Images/100k-chip.png";
-import OneMillion from "./Images/1m-chip.png";
-import OneThousand from "./Images/1000-chip.png";
-import TenThousand from "./Images/10k-chip.png";
-import TwentyFive from "./Images/25-chip.png";
 import { shuffle } from "lodash";
 
 function App() {
@@ -443,12 +434,11 @@ function App() {
       />
       <div className="game-result-div">
         <section className="betting-options">
-          {isHandComplete ? (
+          {isHandComplete && (
             <div className="inner-betting-options">
-              <ChipImages />
+              {CHIPS.map((chip) => 
+                  <ChipImage chip={chip} chipCount={chipCount}  onClick={() => handleBet(chip.chipAmount)}/>)}
             </div>
-          ) : (
-            <></>
           )}
         </section>
         <button
