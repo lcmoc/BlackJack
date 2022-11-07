@@ -1,5 +1,7 @@
 import "./styles.css";
 
+import { DEALER, PLAYER } from "../../Constants/index";
+
 import BlankChip from "../../Images/blank-chip.png";
 import CardImage from "../CardImage";
 import React from "react";
@@ -31,7 +33,7 @@ export default function Game({
         <h1 className="count">
           {isDealersTurn ? dealerCount : null}
         </h1>
-          <CardImage who={"dealer"} cards={dealersCards} isDealersTurn={isDealersTurn} didDouble={didDouble}/>
+          <CardImage who={DEALER} cards={dealersCards} isDealersTurn={isDealersTurn} didDouble={didDouble}/>
       </div>
       <div className="chip-or-message">
         {lockedBet > 0 || !isHandComplete ? (
@@ -43,7 +45,7 @@ export default function Game({
               className="locked-bet-img"
               onClick={clearLockedBet}
               src={BlankChip}
-              alt="nix"
+              alt="locked-bet-img"
             ></img>
           </div>
         ) : null}
@@ -52,7 +54,7 @@ export default function Game({
         </h1>
       </div>
       <div className="players-cards-div">
-      <CardImage who={"player"} cards={playersCards} isDealersTurn={isDealersTurn} didDouble={didDouble}/>
+      <CardImage who={PLAYER} cards={playersCards} isDealersTurn={isDealersTurn} didDouble={didDouble}/>
 
         <h1 className="count">
           {playerCount > 0 ? playerCount : null}

@@ -2,6 +2,7 @@ import './App.css';
 
 import React, { useCallback, useEffect, useState } from "react";
 
+import ChipImages from "./Components/ChipImages/index";
 import { DECK_OF_CARDS } from "./Constants/index";
 import FiftyThousand from "./Images/50k-chip.png";
 import Five from "./Images/5-chip.png";
@@ -444,76 +445,7 @@ function App() {
         <section className="betting-options">
           {isHandComplete ? (
             <div className="inner-betting-options">
-              {chipCount >= 5 ? (
-                <img
-                  src={Five}
-                  onClick={() => handleBet(5)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 25 ? (
-                <img
-                  src={TwentyFive}
-                  onClick={() => handleBet(25)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 100 ? (
-                <img
-                  src={OneHundred}
-                  onClick={() => handleBet(100)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 500 ? (
-                <img
-                  src={FiveHundred}
-                  onClick={() => handleBet(500)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 1000 ? (
-                <img
-                  src={OneThousand}
-                  onClick={() => handleBet(1000)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 10000 ? (
-                <img
-                  src={TenThousand}
-                  onClick={() => handleBet(10000)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 50000 ? (
-                <img
-                  src={FiftyThousand}
-                  onClick={() => handleBet(50000)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 100000 ? (
-                <img
-                  src={OneHundredK}
-                  onClick={() => handleBet(100000)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 500000 ? (
-                <img
-                  src={FiveHundredK}
-                  onClick={() => handleBet(500000)}
-                  className="bet-button"
-                ></img>
-              ) : null}
-              {chipCount >= 1000000 ? (
-                <img
-                  src={OneMillion}
-                  onClick={() => handleBet(1000000)}
-                  className="bet-button"
-                ></img>
-              ) : null}
+              <ChipImages />
             </div>
           ) : (
             <></>

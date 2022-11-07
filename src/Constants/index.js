@@ -5,6 +5,9 @@ import AceOfS from "../Images/AS.png";
 import EightOfC from "../Images/8C.png";
 import EightOfD from "../Images/8D.png";
 import EightOfH from "../Images/8H.png";
+import FiftyThousand from "../Images/50k-chip.png";
+import Five from "../Images/5-chip.png";
+import FiveHundred from "../Images/500-chip.png";
 import FiveOfC from "../Images/5C.png";
 import FiveOfD from "../Images/5D.png";
 import FiveOfH from "../Images/5H.png";
@@ -22,6 +25,10 @@ import KingOfH from "../Images/KH.png";
 import NineOfC from "../Images/9C.png";
 import NineOfD from "../Images/9D.png";
 import NineOfH from "../Images/9H.png";
+import OneHundred from "../Images/100-chip.png";
+import OneHundredK from "../Images/100k-chip.png";
+import OneMillion from "../Images/1m-chip.png";
+import OneThousand from "../Images/1000-chip.png";
 import QueenOfC from "../Images/QC.png";
 import QueenOfD from "../Images/QD.png";
 import QueenOfH from "../Images/QH.png";
@@ -34,10 +41,12 @@ import SixOfH from "../Images/6H.png";
 import TenOfC from "../Images/10C.png";
 import TenOfD from "../Images/10D.png";
 import TenOfH from "../Images/10H.png";
+import TenThousand from "../Images/10k-chip.png";
 import ThreeOfC from "../Images/3C.png";
 import ThreeOfD from "../Images/3D.png";
 import ThreeOfH from "../Images/3H.png";
 import ThreeOfS from "../Images/3S.png";
+import TwentyFive from "../Images/25-chip.png";
 import TwoOfC from "../Images/2C.png";
 import TwoOfD from "../Images/2D.png";
 import TwoOfH from "../Images/2H.png";
@@ -229,3 +238,51 @@ export const PLAYER = 'player';
 export const DEALER = 'dealer';
 export const SIDEWAYS_DOUBLE_CARD = 'sideways-double-card';
 export const CARD_IMG = 'card-img';
+
+export const CHIPS = [
+  {
+    name: "Five",
+    src: Five,
+    value: 5,
+  },
+  {
+    name: "TwentyFive",
+    src: TwentyFive,
+    chipAmount: 25,
+  },
+  {
+    name: "OneHundred",
+    src: OneHundred,
+    chipAmount: 100,
+  },
+  {
+    name: "FiveHundred",
+    src: FiveHundred,
+    chipAmount: 500,
+  },
+  {
+    name: "OneThousand",
+    src: OneThousand,
+    chipAmount: 1000,
+  },
+  {
+    name: "TenThousand",
+    src: TenThousand,
+    chipAmount: 10000,
+  },
+  {
+    name: "FiftyThousand",
+    src: FiftyThousand,
+    chipAmount: 50000,
+  },
+  {
+    name: "OneHundredK",
+    src: OneHundredK,
+    chipAmount: 100000,
+  },
+  {
+    name: "OneMillion",
+    src: OneMillion,
+    chipAmount: 1000000,
+  }
+];
