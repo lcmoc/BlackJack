@@ -3,6 +3,7 @@ import "./styles.css";
 import BlankChip from "../../Images/blank-chip.png";
 import CardImage from "../CardImage";
 import React from "react";
+import { getResultMessage } from "../../Helpers/index";
 
 export default function Game({
   playersCards,
@@ -47,33 +48,7 @@ export default function Game({
           </div>
         ) : null}
         <h1 className="result-message">
-          {winner === "player" && isBlackjack
-            ? `Blackjack! Player wins ${
-                previousBet + previousBet * 1.5
-              }`
-            : winner === "player" && didDouble
-            ? `Player doubles and wins ${previousBet * 4}`
-            : winner === "player" && isDealerBusted
-            ? `Dealer busted! Player wins ${previousBet * 2}`
-            : winner === "dealer" && didDouble
-            ? `Player doubled and lost ${previousBet * 2}`
-            : winner === "dealer" && isBlackjack
-            ? `Dealer Blackjack. Player lost ${previousBet}`
-            : winner === "dealer" &&
-              isPlayerBusted &&
-              didDouble
-            ? `Player busted on double. Lost ${previousBet * 2}`
-            : winner === "dealer" && isPlayerBusted
-            ? `Player busted. Lost ${previousBet}`
-            : winner === "dealer"
-            ? `Player lost ${previousBet}`
-            : winner === "player"
-            ? `Player wins ${previousBet * 2}`
-            : winner === "push" && didDouble
-            ? `Pushed back ${previousBet * 2}`
-            : winner === "push"
-            ? `Pushed back ${previousBet}`
-            : null}
+        {getResultMessage(winner, isBlackjack, didDouble, previousBet, isDealerBusted, isPlayerBusted)}
         </h1>
       </div>
       <div className="players-cards-div">
