@@ -1,7 +1,8 @@
-import './App.css';
+import "./App.css";
 
 import React, { useCallback, useEffect, useState } from "react";
 
+import BettingButton from "./Components/BettingButton/index";
 import { CHIPS } from "./Constants/index";
 import ChipImage from "./Components/ChipImage/index";
 import { DECK_OF_CARDS } from "./Constants/index";
@@ -279,6 +280,7 @@ function App() {
         setIsHandComplete(true);
       }
       if (dealerCount < playerCount) {
+        console.log("player winns");
         setWinner("player");
         setIsHandComplete(true);
       }
@@ -287,7 +289,14 @@ function App() {
         setIsHandComplete(true);
       }
     }
-  }, [dealerCount, dealerHitAgain, isDealersTurn, isPlayerBusted, playerCount, winner]);
+  }, [
+    dealerCount,
+    dealerHitAgain,
+    isDealersTurn,
+    isPlayerBusted,
+    playerCount,
+    winner,
+  ]);
 
   useEffect(() => {
     if (dealerCount > 21) {
@@ -358,121 +367,126 @@ function App() {
 
   return (
     <div className="App">
-          <div className="app">
-      <header className="app-header">
-        <p className="title">Double Deck Blackjack</p>
-        <div className="pending-bet-div">
-          <button
-            className="reset-button"
-            id={betAmount > 0 ? "ready-to-start" : "not-ready"}
-            onClick={resetBets}
-          >
-            Reset
-          </button>
-          <p className="pending-bet">
-            Next Bet:{" "}
+      <div className="app">
+        <header className="app-header">
+          <p className="title">Double Deck Blackjack</p>
+          <div className="pending-bet-div">
+            <button
+              className="reset-button"
+              id={betAmount > 0 ? "ready-to-start" : "not-ready"}
+              onClick={resetBets}
+            >
+              Reset
+            </button>
+            <span className="pending-bet">
+              Next Bet:{" "}
+              <div
+                className="chip-number"
+                id={
+                  betAmount === 0 && previousBet === 0
+                    ? "attention-green"
+                    : "normal-text"
+                }
+              >
+                {betAmount}
+              </div>
+            </span>
+          </div>
+          <span className="chip-count">
+            Chip Count:{" "}
             <div
               className="chip-number"
+              id={chipCount === 0 ? "attention-red" : "normal-text"}
+            >
+              {chipCount}
+            </div>
+            {isHandComplete && chipCount === 0 ? (
+              <button
+                className="betting-option restart-button"
+                id={chipCount < 5 ? "ready-to-start" : "not-ready"}
+                onClick={restartFresh}
+              >
+                Restart
+              </button>
+            ) : null}
+          </span>
+        </header>
+        <Game
+          randomizedDecks={randomizedDecks}
+          playersCards={playersCards}
+          dealersCards={dealersCards}
+          chipCount={chipCount}
+          setChipCount={setChipCount}
+          betAmount={betAmount}
+          setBetAmount={setBetAmount}
+          playerCount={playerCount}
+          setPlayerCount={setPlayerCount}
+          dealerCount={dealerCount}
+          setDealerCount={setDealerCount}
+          handleHit={handleHit}
+          handleStay={handleStay}
+          handleDouble={handleDouble}
+          // handleSplit={handleSplit}
+          lockedBet={lockedBet}
+          handleLockedBet={handleLockedBet}
+          isHandComplete={isHandComplete}
+          isDealersTurn={isDealersTurn}
+          isPlayerBusted={isPlayerBusted}
+          isDealerBusted={isDealerBusted}
+          didDouble={didDouble}
+          startHand={startHand}
+          handleBet={handleBet}
+          previousBet={previousBet}
+          winner={winner}
+          isBlackjack={isBlackjack}
+          clearLockedBet={clearLockedBet}
+        />
+        <div className="game-result-div">
+          <section className="betting-options">
+            {isHandComplete && (
+              <div className="inner-betting-options">
+                {CHIPS.map((chip) => (
+                  <ChipImage
+                    chip={chip}
+                    chipCount={chipCount}
+                    onClick={() => handleBet(chip.chipAmount)}
+                    key={`chip-${chip.name}`}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+          <button
+            className="betting-option"
+            id={betAmount > 0 ? "ready-to-start" : "not-ready"}
+            onClick={handleLockedBet}
+          >
+            Place Bet
+          </button>
+          {isHandComplete && (
+            <button
+              className="betting-option"
+              id={lockedBet > 0 ? "ready-to-start" : "not-ready"}
+              onClick={startHand}
+            >
+              Start Hand
+            </button>
+          )}
+          {chipCount >= previousBet && isHandComplete && (
+            <button
+              className="betting-option"
+              onClick={keepSameBet}
               id={
-                betAmount === 0 && previousBet === 0
-                  ? "attention-green"
-                  : "normal-text"
+                previousBet <= chipCount && previousBet > 0
+                  ? "ready-to-start"
+                  : "not-ready"
               }
             >
-              {betAmount}
-            </div>
-          </p>
-        </div>
-        <p className="chip-count">
-          Chip Count:{" "}
-          <div
-            className="chip-number"
-            id={chipCount === 0 ? "attention-red" : "normal-text"}
-          >
-            {chipCount}
-          </div>
-          {isHandComplete && chipCount === 0 ? (
-            <button
-              className="betting-option restart-button"
-              id={chipCount < 5 ? "ready-to-start" : "not-ready"}
-              onClick={restartFresh}
-            >
-              Restart
+              Same Bet
             </button>
-          ) : null}
-        </p>
-      </header>
-      <Game
-        randomizedDecks={randomizedDecks}
-        playersCards={playersCards}
-        dealersCards={dealersCards}
-        chipCount={chipCount}
-        setChipCount={setChipCount}
-        betAmount={betAmount}
-        setBetAmount={setBetAmount}
-        playerCount={playerCount}
-        setPlayerCount={setPlayerCount}
-        dealerCount={dealerCount}
-        setDealerCount={setDealerCount}
-        handleHit={handleHit}
-        handleStay={handleStay}
-        handleDouble={handleDouble}
-        // handleSplit={handleSplit}
-        lockedBet={lockedBet}
-        handleLockedBet={handleLockedBet}
-        isHandComplete={isHandComplete}
-        isDealersTurn={isDealersTurn}
-        isPlayerBusted={isPlayerBusted}
-        isDealerBusted={isDealerBusted}
-        didDouble={didDouble}
-        startHand={startHand}
-        handleBet={handleBet}
-        previousBet={previousBet}
-        winner={winner}
-        isBlackjack={isBlackjack}
-        clearLockedBet={clearLockedBet}
-      />
-      <div className="game-result-div">
-        <section className="betting-options">
-          {isHandComplete && (
-            <div className="inner-betting-options">
-              {CHIPS.map((chip) => 
-                  <ChipImage chip={chip} chipCount={chipCount}  onClick={() => handleBet(chip.chipAmount)}/>)}
-            </div>
           )}
-        </section>
-        <button
-          className="betting-option"
-          id={betAmount > 0 ? "ready-to-start" : "not-ready"}
-          onClick={handleLockedBet}
-        >
-          Place Bet
-        </button>
-        {isHandComplete ? (
-          <button
-            className="betting-option"
-            id={lockedBet > 0 ? "ready-to-start" : "not-ready"}
-            onClick={startHand}
-          >
-            Start Hand
-          </button>
-        ) : null}
-        {chipCount >= previousBet && isHandComplete ? (
-          <button
-            className="betting-option"
-            onClick={keepSameBet}
-            id={
-              previousBet <= chipCount && previousBet > 0
-                ? "ready-to-start"
-                : "not-ready"
-            }
-          >
-            Same Bet
-          </button>
-        ) : null}
+        </div>
       </div>
-    </div>
-
     </div>
   );
 }
