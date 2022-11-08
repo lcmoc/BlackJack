@@ -2,7 +2,7 @@ import "./App.css";
 
 import React, { useCallback, useEffect, useState } from "react";
 
-import BettingButton from "./Components/BettingButton/index";
+// import BettingButton from "./Components/BettingButton/index";
 import { CHIPS } from "./Constants/index";
 import ChipImage from "./Components/ChipImage/index";
 import { DECK_OF_CARDS } from "./Constants/index";
@@ -11,9 +11,6 @@ import { shuffle } from "lodash";
 
 function App() {
   const twoDecks = [...DECK_OF_CARDS, ...DECK_OF_CARDS];
-  const shuffledDoubleDeck = shuffle(twoDecks);
-  const firstFourCards = shuffledDoubleDeck.splice(0, 4);
-
   const [randomizedDecks, setRandomizedDecks] = useState([]);
   const [chipCount, setChipCount] = useState(1000);
   const [betAmount, setBetAmount] = useState(0);
@@ -209,7 +206,7 @@ function App() {
       setRandomizedDecks(currentDeck);
       setDealerCount(dealerCount + parseInt(nextCardValue));
     }, 500);
-  });
+  }, [dealerCount, randomizedDecks, dealersCards]);
 
   useEffect(() => {
     handScore("player", playersCards);
@@ -245,7 +242,7 @@ function App() {
       setIsHandComplete("true");
       setIsDealersTurn("true");
     }
-  }, [playersCards.length, playerCount, dealerCount, dealersCards.length]);
+  }, [dealerCount, playerCount, dealersCards.length, playersCards.length]);
 
   // Player's turn
   useEffect(() => {
@@ -280,7 +277,6 @@ function App() {
         setIsHandComplete(true);
       }
       if (dealerCount < playerCount) {
-        console.log("player winns");
         setWinner("player");
         setIsHandComplete(true);
       }
@@ -289,14 +285,7 @@ function App() {
         setIsHandComplete(true);
       }
     }
-  }, [
-    dealerCount,
-    dealerHitAgain,
-    isDealersTurn,
-    isPlayerBusted,
-    playerCount,
-    winner,
-  ]);
+  }, [isDealersTurn, dealerCount, dealerHitAgain, isPlayerBusted, playerCount, winner]);
 
   useEffect(() => {
     if (dealerCount > 21) {
@@ -352,7 +341,7 @@ function App() {
     if (winner === "push" || winner === "dealer" || winner === "player") {
       // setPreviousBet(lockedBet)
     }
-  }, [chipCount, didDouble, isBlackjack, previousBet, winner]);
+  }, [winner, chipCount, previousBet, didDouble, isBlackjack]);
 
   useEffect(() => {
     if (lockedBet > 0) {
