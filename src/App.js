@@ -360,7 +360,7 @@ function App() {
     <div className="App">
       <div className="app">
         <header className="app-header">
-          <p className="title">Double Deck Blackjack</p>
+          <p className="title">Blackjack</p>
           <div className="pending-bet-div">
             <button
               className="reset-button"
