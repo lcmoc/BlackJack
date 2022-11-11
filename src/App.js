@@ -11,6 +11,8 @@ import { shuffle } from "lodash";
 
 function App() {
   const twoDecks = [...DECK_OF_CARDS, ...DECK_OF_CARDS];
+  const shuffledDoubleDeck = shuffle(twoDecks);
+
   const [randomizedDecks, setRandomizedDecks] = useState([]);
   const [chipCount, setChipCount] = useState(1000);
   const [betAmount, setBetAmount] = useState(0);
@@ -181,7 +183,7 @@ function App() {
     setLockedBet(0);
   };
 
-  const dealerHitAgain = useCallback(() => {
+  const dealerHitAgain = () => {
     let tenRegex = /^[JQK]|^10/;
     let numRegex = /^[2-9]/;
     let aceRegex = /^A/;
@@ -206,7 +208,7 @@ function App() {
       setRandomizedDecks(currentDeck);
       setDealerCount(dealerCount + parseInt(nextCardValue));
     }, 500);
-  }, [dealerCount, randomizedDecks, dealersCards]);
+  };
 
   useEffect(() => {
     handScore("player", playersCards);
@@ -242,7 +244,7 @@ function App() {
       setIsHandComplete("true");
       setIsDealersTurn("true");
     }
-  }, [dealerCount, playerCount, dealersCards.length, playersCards.length]);
+  });
 
   // Player's turn
   useEffect(() => {
@@ -285,7 +287,7 @@ function App() {
         setIsHandComplete(true);
       }
     }
-  }, [isDealersTurn, dealerCount, dealerHitAgain, isPlayerBusted, playerCount, winner]);
+  }, [isDealersTurn]);
 
   useEffect(() => {
     if (dealerCount > 21) {
@@ -314,7 +316,7 @@ function App() {
         dealerHitAgain();
       }, 500);
     }
-  }, [dealerCount, dealerHitAgain, isDealersTurn, isPlayerBusted, playerCount]);
+  }, [dealerCount]);
 
   // Payout / take losses / push
   useEffect(() => {
@@ -341,7 +343,7 @@ function App() {
     if (winner === "push" || winner === "dealer" || winner === "player") {
       // setPreviousBet(lockedBet)
     }
-  }, [winner, chipCount, previousBet, didDouble, isBlackjack]);
+  }, [winner]);
 
   useEffect(() => {
     if (lockedBet > 0) {
