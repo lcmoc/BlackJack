@@ -1,10 +1,142 @@
+import './index.css';
+
+import * as remote from "@syncstate/remote-client";
+
+import App from './App';
+import { Provider } from "@syncstate/react";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { createDocStore } from "@syncstate/core";
+import io from "socket.io-client";
 import reportWebVitals from './reportWebVitals';
 
+const store = createDocStore(
+  {
+    activeUser: 0,
+    ballPos: {
+      topPos: 50,
+      leftPos: 50,
+    },
+    playingIsActive: false,
+    newGame: false,
+  },
+  [remote.createInitializer()]
+);
+
+const [doc, setDoc] = store.useDoc();
+
+const socket = io.connect("https://node-ping-pong-server.herokuapp.com/");
+
+//enable remote plugin
+store.dispatch(
+  remote.enableRemote([
+    "/leftPadPos",
+    "/rightPadPos",
+    "/ballPos",
+    "/direction",
+    "/playingIsActive",
+    "/newGame",
+    "/activeUser",
+  ])
+);
+
+// send request to server to get patches every time when page reloads
+socket.emit("fetchDoc", "/leftPadPos");
+socket.emit("fetchDoc", "/rightPadPos");
+socket.emit("fetchDoc", "/ballPos");
+socket.emit("fetchDoc", "/direction");
+socket.emit("fetchDoc", "/playingIsActive");
+socket.emit("fetchDoc", "/newGame");
+
+//observe the changes in store state
+store.observe(
+  "doc",
+  "/leftPadPos",
+  (leftPadPos, change) => {
+    if (!change.origin) {
+      //send json patch to the server
+      socket.emit("change", "/leftPadPos", change);
+    }
+  },
+  Infinity
+);
+
+store.observe(
+  "doc",
+  "/rightPadPos",
+  (rightPadPos, change) => {
+    if (!change.origin) {
+      //send json patch to the server
+      socket.emit("change", "/rightPadPos", change);
+    }
+  },
+  Infinity
+);
+
+store.observe(
+  "doc",
+  "/ballPos",
+  (ballPos, change) => {
+    if (!change.origin) {
+      //send json patch to the server
+      socket.emit("change", "/ballPos", change);
+    }
+  },
+  Infinity
+);
+
+store.observe(
+  "doc",
+  "/direction",
+  (leftPadPos, change) => {
+    if (!change.origin) {
+      //send json patch to the server
+      socket.emit("change", "/direction", change);
+    }
+  },
+  Infinity
+);
+
+store.observe(
+  "doc",
+  "/playingIsActive",
+  (playingIsActive, change) => {
+    if (!change.origin) {
+      //send json patch to the server
+      socket.emit("change", "/playingIsActive", change);
+    }
+  },
+  Infinity
+);
+
+store.observe(
+  "doc",
+  "/newGame",
+  (newGame, change) => {
+    if (!change.origin) {
+      //send json patch to the server
+      socket.emit("change", "/newGame", change);
+    }
+  },
+  Infinity
+);
+
+//get patches from server and dispatch
+
+socket.on("change", (path, patch) => {
+  store.dispatch(remote.applyRemote(path.replace(path, ""), patch));
+});
+
+// gets emitted data (active user count) from server and adds it into the activeUser syncstate
+
+//TODO / idea: update user counter every 30sek
+
+socket.on('counter', function (serverData) {
+  setDoc((doc) => doc.activeUser = serverData.activeUserCount);
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <App />

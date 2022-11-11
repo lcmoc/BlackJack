@@ -8,8 +8,12 @@ import ChipImage from "./Components/ChipImage/index";
 import { DECK_OF_CARDS } from "./Constants/index";
 import Game from "./Components/Game/index";
 import { shuffle } from "lodash";
+import { useDoc } from '@syncstate/react';
 
 function App() {
+  const [activeUser, setActiveUser] = useDoc("/activeUser");
+
+
   const twoDecks = [...DECK_OF_CARDS, ...DECK_OF_CARDS];
   const shuffledDoubleDeck = shuffle(twoDecks);
 
