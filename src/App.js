@@ -11,7 +11,6 @@ import { shuffle } from "lodash";
 
 function App() {
   const twoDecks = [...DECK_OF_CARDS, ...DECK_OF_CARDS];
-  const shuffledDoubleDeck = shuffle(twoDecks);
 
   const [randomizedDecks, setRandomizedDecks] = useState([]);
   const [chipCount, setChipCount] = useState(1000);

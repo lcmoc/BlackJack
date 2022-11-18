@@ -286,3 +286,5 @@ export const CHIPS = [
     chipAmount: 1000000,
   }
 ];
+
+export const CARD_BACK_ALT = 'card back';
