@@ -1,7 +1,7 @@
 import { CARD_BACK_ALT, DEALER } from '../../Constants/index';
 import { CARD_IMG, IMAGES, PLAYER, SIDEWAYS_DOUBLE_CARD } from '../../Constants/index';
 
-import CardBack from "../../Images/card-back.png";
+import CardBack from "../../images/card-back.png";
 import React from "react";
 
 const CardImage = ({ who, cards, isDealersTurn, didDouble }) => {

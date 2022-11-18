@@ -2,7 +2,7 @@ import "./styles.css";
 
 import { DEALER, PLAYER } from "../../Constants/index";
 
-import BlankChip from "../../Images/blank-chip.png";
+import BlankChip from "../../images/blank-chip.png";
 import CardImage from "../CardImage";
 import React from "react";
 import { getResultMessage } from "../../Helpers/index";

@@ -1,4 +1,4 @@
-// import CardBack from "../Images/card-back.png";
+// import CardBack from "../images/card-back.png";
 import { IMAGES } from '../Constants/index'
 
 export const getImage = (card) => {
