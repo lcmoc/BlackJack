@@ -360,15 +360,11 @@ function App() {
     <div className="App">
       <div className="app">
         <header className="app-header">
-          <p className="title">Blackjack</p>
+        <p className="title">Lucky
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1151732/poker_logo2.png" alt="Poker Logo" width="60px" height="60px"></img>
+                Lucky
+          </p>
           <div className="pending-bet-div">
-            <button
-              className="reset-button"
-              id={betAmount > 0 ? "ready-to-start" : "not-ready"}
-              onClick={resetBets}
-            >
-              Reset
-            </button>
             <span className="pending-bet">
               Next Bet:{" "}
               <div
@@ -382,6 +378,13 @@ function App() {
                 {betAmount}
               </div>
             </span>
+            <button
+              className="reset-button"
+              id={betAmount > 0 ? "ready-to-start" : "not-ready"}
+              onClick={resetBets}
+            >
+              Reset
+            </button>
           </div>
           <span className="chip-count">
             Chip Count:{" "}
