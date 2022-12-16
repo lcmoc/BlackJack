@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2&family=Calligraffitti&display=swap');
 body {
     background-image: url('./images/leather-texture.jpg');
     font-family: 'Secular One', sans-serif;
@@ -10,8 +11,13 @@ body {
 }
 
 .title {
-    font-size: 48px;
+    font-size: 52px;
     margin: 0px;
+    font-family: 'Brush Script MT', cursive;
+    color: #fff;
+    text-shadow: 2px 2px 4px #0ada34;
+    
+    
 }
 
 .app-header {
@@ -52,12 +58,25 @@ p, .pending-bet-div {
 }
 
 .betting-option {
-    border-radius: 4px;
     margin-left: 5px;
     height: 4vh;
     border: none;
     font-size: 14px;
-    width: 5.3vw;
+    width: 5.4vw;
+    border: none;
+    font-family: 'Lato';
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
 }
 
 .inner-betting-options {
@@ -74,13 +93,13 @@ p, .pending-bet-div {
 
 .bet-button:hover {
     background-color: rgb(94, 248, 23);
-    border-radius: 60px;
+    border-radius: 80px;
     cursor: pointer;
 }
 
 .bet-button:active {
     background-color: rgba(94, 248, 23, 0.5);
-    border-radius: 60px;
+    border-radius: 80px;
     cursor: pointer;
 }
 
@@ -105,10 +124,15 @@ p, .pending-bet-div {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 100;
+    font-family: 'Trattatello', fantasy;
+
+
 }
 
 .chip-count {
     font-size: 36px;
+    font-family: 'Trattatello', fantasy;
     margin: 0px;
     display: flex;
     justify-content: center;
@@ -116,6 +140,8 @@ p, .pending-bet-div {
     background-color: rgba(255, 255, 255, 0.205);
     padding-left: 10px;
     border-radius: 6px;
+    color: #fff;
+    font-weight: 100;
 }
 
 .chip-number {
@@ -209,6 +235,7 @@ p, .pending-bet-div {
         font-size: 14px;
         width: fit-content;
         height: auto;
+        
     }
 
     .inner-betting-options {
