@@ -30,10 +30,13 @@ export default function Game({
   return (
     <div className="game-div">
       <div className="dealers-cards-div">
-        <h1 className="count">
-          {isDealersTurn ? dealerCount : null}
-        </h1>
-          <CardImage who={DEALER} cards={dealersCards} isDealersTurn={isDealersTurn} didDouble={didDouble}/>
+        <h1 className="count">{isDealersTurn ? dealerCount : null}</h1>
+        <CardImage
+          who={DEALER}
+          cards={dealersCards}
+          isDealersTurn={isDealersTurn}
+          didDouble={didDouble}
+        />
       </div>
       <div className="chip-or-message">
         {lockedBet > 0 || !isHandComplete ? (
@@ -50,15 +53,25 @@ export default function Game({
           </div>
         ) : null}
         <h1 className="result-message">
-        {getResultMessage(winner, isBlackjack, didDouble, previousBet, isDealerBusted, isPlayerBusted)}
+          {getResultMessage(
+            winner,
+            isBlackjack,
+            didDouble,
+            previousBet,
+            isDealerBusted,
+            isPlayerBusted
+          )}
         </h1>
       </div>
       <div className="players-cards-div">
-      <CardImage who={PLAYER} cards={playersCards} isDealersTurn={isDealersTurn} didDouble={didDouble}/>
+        <CardImage
+          who={PLAYER}
+          cards={playersCards}
+          isDealersTurn={isDealersTurn}
+          didDouble={didDouble}
+        />
 
-        <h1 className="count">
-          {playerCount > 0 ? playerCount : null}
-        </h1>
+        <h1 className="count">{playerCount > 0 ? playerCount : null}</h1>
       </div>
       <section className="gameplay-options">
         {!isHandComplete ? (
@@ -77,9 +90,7 @@ export default function Game({
             <button
               className="betting-option"
               id={
-                !isDealersTurn &&
-                playerCount <= 21 &&
-                !didDouble
+                !isDealersTurn && playerCount <= 21 && !didDouble
                   ? "ready-to-start"
                   : "not-ready"
               }

@@ -1,13 +1,13 @@
 import "./App.css";
 
 import React, { useCallback, useEffect, useState } from "react";
+import { concat, shuffle } from "lodash";
 
 // import BettingButton from "./Components/BettingButton/index";
 import { CHIPS } from "./Constants/index";
 import ChipImage from "./Components/ChipImage/index";
 import { DECK_OF_CARDS } from "./Constants/index";
 import Game from "./Components/Game/index";
-import { shuffle } from "lodash";
 
 function App() {
   const twoDecks = [...DECK_OF_CARDS, ...DECK_OF_CARDS];
@@ -56,13 +56,11 @@ function App() {
   };
 
   useEffect(() => {
-    if (previousBet > 0) {
-      setLockedBet(0);
-    }
+    previousBet > 0 && setLockedBet(0);
   }, [previousBet]);
 
   const resetBets = () => {
-    setBetAmount(0);
+    window.location.reload(false);
   };
 
   const restartFresh = () => {
@@ -79,6 +77,10 @@ function App() {
     let numRegex = /^[2-9]/;
     let aceRegex = /^A/;
     let acesLast = [];
+    const isPlayer = who === "player";
+    const isDealer = who === "dealer";
+    // const acesLast2 = sortedHand.map((card) => ((aceRegex.test(card) && card) || concat(card)));
+
     sortedHand.forEach((card) => {
       if (aceRegex.test(card)) {
         acesLast.push(card);
@@ -89,26 +91,16 @@ function App() {
 
     let handCount = 0;
 
-    for (let i = 0; i < acesLast.length; i++) {
-      if (tenRegex.test(acesLast[i])) {
-        handCount += 10;
-      } else if (numRegex.test(acesLast[i])) {
-        handCount += parseInt(acesLast[i].match(numRegex)[0]);
-      } else if (aceRegex.test(acesLast[i])) {
-        if (handCount <= 10) {
-          handCount += 11;
-        } else if (handCount + 11 > 21) {
-          handCount += 1;
-        }
-      }
-    }
+    acesLast.forEach((card) => {
+      const isAce = aceRegex.test(card);
+      tenRegex.test(card) && (handCount += 10);
+      numRegex.test(card) && (handCount += parseInt(card.match(numRegex)[0]));
+      (isAce && handCount <= 10 && (handCount += 11)) ||
+        (handCount + 11 > 21 && (handCount += 1));
+    });
 
-    if (who === "dealer") {
-      setDealerCount(handCount);
-    }
-    if (who === "player") {
-      setPlayerCount(handCount);
-    }
+    isPlayer && setPlayerCount(handCount);
+    isDealer && setDealerCount(handCount);
     return handCount;
   };
 
@@ -129,21 +121,17 @@ function App() {
   };
 
   const handleStay = () => {
-    if (!isPlayerBusted && !isDealersTurn) {
-      setIsDealersTurn(true);
-    }
+    !isPlayerBusted && !isDealersTurn && setIsDealersTurn(true);
   };
 
   const handleBet = (bet) => {
-    if (betAmount + bet <= chipCount && isHandComplete) {
+    betAmount + bet <= chipCount &&
+      isHandComplete &&
       setBetAmount(betAmount + bet);
-    }
   };
 
   const handleLockedBet = () => {
-    if (betAmount > 0) {
-      setLockedBet(betAmount);
-    }
+    betAmount > 0 && setLockedBet(betAmount);
   };
 
   const keepSameBet = () => {
@@ -191,17 +179,18 @@ function App() {
     let currentDeck = randomizedDecks;
     let nextCard = currentDeck.splice(0, 1)[0];
 
-    if (tenRegex.test(nextCard)) {
-      nextCardValue = 10;
-    } else if (numRegex.test(nextCard)) {
-      nextCardValue = parseInt(nextCard.match(numRegex)[0]);
-    } else if (aceRegex.test(nextCard)) {
-      if (dealerCount <= 10) {
-        nextCardValue = 11;
-      } else if (dealerCount + 11 > 21) {
-        nextCardValue = 1;
-      }
-    }
+    const isTen = tenRegex.test(nextCard);
+    const isNum = numRegex.test(nextCard);
+    const isAce = aceRegex.test(nextCard);
+
+    const dealerCountSmallerThen10 = dealerCount <= 10 && isAce;
+    const dealerCountBiggerThen10 = dealerCount + 11 > 21 && isAce;
+
+    isTen && (nextCardValue = 10);
+    isNum && (nextCardValue = parseInt(nextCard.match(numRegex)[0]));
+    dealerCountSmallerThen10 && (nextCardValue = 11);
+    dealerCountBiggerThen10 && (nextCardValue = 1);
+
     setTimeout(() => {
       setDealersCards([...dealersCards, nextCard]);
       setRandomizedDecks(currentDeck);
@@ -319,29 +308,25 @@ function App() {
 
   // Payout / take losses / push
   useEffect(() => {
-    if (winner === "dealer") {
-      setBetAmount(0);
-    }
-    if (winner === "player" && !isBlackjack) {
-      if (didDouble) {
-        setChipCount(chipCount + previousBet * 4);
-      } else {
-        setChipCount(chipCount + previousBet * 2);
-      }
-    }
-    if (winner === "player" && isBlackjack) {
-      setChipCount(chipCount + previousBet * 2.5);
-    }
-    if (winner === "push") {
-      if (didDouble) {
-        setChipCount(chipCount + previousBet * 2);
-      } else {
-        setChipCount(chipCount + previousBet);
-      }
-    }
-    if (winner === "push" || winner === "dealer" || winner === "player") {
-      // setPreviousBet(lockedBet)
-    }
+    const playerWins = winner === "player";
+    const playerWinsWithBlackJack = playerWins && isBlackjack;
+    const playerWinsWithOutBlackJack = playerWins && !isBlackjack;
+
+    const dealerWins = winner === "dealer";
+    const pushWins = winner === "push";
+    const standardChipAmount = chipCount + previousBet;
+
+    dealerWins && setBetAmount(0);
+
+    const correctChipCount =
+      (playerWinsWithOutBlackJack &&
+        ((didDouble && standardChipAmount * 4) || standardChipAmount * 2)) ||
+      (playerWinsWithBlackJack && standardChipAmount * 2.5) ||
+      (pushWins &&
+        ((didDouble && standardChipAmount * 2) || standardChipAmount));
+
+
+    playerWins && setChipCount(correctChipCount);
   }, [winner]);
 
   useEffect(() => {
@@ -390,15 +375,6 @@ function App() {
             >
               {chipCount}
             </div>
-            {isHandComplete && chipCount === 0 ? (
-              <button
-                className="betting-option restart-button"
-                id={chipCount < 5 ? "ready-to-start" : "not-ready"}
-                onClick={restartFresh}
-              >
-                Restart
-              </button>
-            ) : null}
           </span>
         </header>
         <Game
